@@ -48,7 +48,15 @@ const BasicTable = () => {
             <TableCell align="center">TITLE</TableCell>
             <TableCell align="right">STATUS</TableCell>
             <TableCell align="right">ROLE</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right">JOINNING DATE</TableCell>
+            <TableCell align="right">MOBILE</TableCell>
+            <TableCell align="right"> ALTERNATIVE CONTACT</TableCell>
+            <TableCell align="right">ADDRESS</TableCell>
+            <TableCell align="right">DOB</TableCell>
+            <TableCell align="right">RELETIVE PERDON</TableCell>
+            <TableCell align="right">RELETIVE PERSON CONTACT</TableCell>
+            <TableCell align="right">REPOTER</TableCell>
+            {/* <TableCell align="right"></TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -106,10 +114,19 @@ const BasicTable = () => {
                       display: "inline-block",
                     }}
                   >
-                    {Employee.Status}
+                    pending
                   </Typography>
                 </TableCell>
                 <TableCell align="right">{Employee.Id}</TableCell>
+                <TableCell align="right">{Employee.Joining_Date}</TableCell>
+                <TableCell align="right">{Employee.Contact}</TableCell>
+                <TableCell align="right">{Employee.Contact}</TableCell>
+                <TableCell align="right">{Employee.Address}</TableCell>
+                <TableCell align="right">{Employee.DOB}</TableCell>
+                <TableCell align="right">{Employee.RelativePerson}</TableCell>
+                <TableCell align="right">{Employee.RelativeContact}</TableCell>
+                <TableCell align="right">{Employee.Reporter}</TableCell>
+                {/* <TableCell align="right">{Employee.Id}</TableCell> */}
                 <TableCell align="right">
                   <Typography
                     component="span"
