@@ -1,0 +1,30 @@
+.listing {
+  list-style-type: none;
+}
+.headList {
+  color: rgba(55, 65, 81);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+/* .text-muted {
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+} */
+/* .card-1 {
+  width: 25rem;
+  height: 7rem;
+  padding: 1rem;
+  justify-content: center;
+} */
+
+/* @media only screen and (max-width: 600px) {
+  .card-demo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+} */

@@ -1,0 +1,21 @@
+.App {
+  font-family: "Times New Roman", Times, serif;
+  color: gray;
+}
+.listing {
+  list-style-type: none;
+}
+.headList {
+  color: rgba(55, 65, 81);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.text-muted {
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  
+}
