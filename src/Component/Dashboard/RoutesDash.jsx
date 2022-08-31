@@ -4,11 +4,13 @@ import BasicTable from "./BasicTable"
 import Blank from "./Blank"
 import Cards from "./Cards"
 import Dashboard from "./Dashboard"
-import EditTable from "./EditTable"
+import EditTable from "../user/Edituser"
 import Element from "./Element"
 import Forms from "./Forms"
 import Model from "./Model"
 import "./RoutesDash.css"
+import Edituser from "../user/Edituser"
+import Viewuser from "../user/Viewuser"
 
 const RoutesDsah = () => {
   return (
@@ -21,7 +23,9 @@ const RoutesDsah = () => {
         <Route path="/Cards" element={<Cards />} />
         <Route path="/Model" element={<Model />} />
         <Route path="/Blank" element={<Blank />} />
-        <Route path="/edit" element={<EditTable />} />
+        {/* <Route path="employee/edit/:id" element={<Edituser/>} /> */}
+        <Route path="employee/view/:id" element={<Viewuser/>} />
+        {/* <Route path="employee/add" element={<Viewuser/>} /> */}
       </Routes>
     </div>
   )

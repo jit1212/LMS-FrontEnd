@@ -7,12 +7,18 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import { Avatar, Grid, selectClasses, Typography } from "@mui/material"
-import EditTable from "./EditTable"
+import EditTable from "../user/Edituser"
 import { Link } from "react-router-dom"
 import { NavLink } from "react-bootstrap"
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { selectEmployees, setEmployees } from "../redux/Action/EmployeeActions"
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import Viewuser from "../user/Viewuser"
+import { propTypes } from "react-bootstrap/esm/Image"
 
 const BasicTable = () => {
   // const [state,setState] = React.useState()
@@ -40,106 +46,102 @@ const BasicTable = () => {
 
 
   return (
-    <TableContainer component={Paper} sx={{ padding: "20px" }}>
+<Grid>
+  <Typography align="center" style={{padding:"25px"}}  >
+    <Link to="add" >Add Employee</Link>
+  </Typography>
+
+<TableContainer component={Paper} sx={{ padding: "20px" }}>
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
-            <TableCell>NAME</TableCell>
-            <TableCell align="center">TITLE</TableCell>
-            <TableCell align="right">STATUS</TableCell>
-            <TableCell align="right">ROLE</TableCell>
-            <TableCell align="right">JOINNING DATE</TableCell>
-            <TableCell align="right">MOBILE</TableCell>
-            <TableCell align="right"> ALTERNATIVE CONTACT</TableCell>
-            <TableCell align="right">ADDRESS</TableCell>
-            <TableCell align="right">DOB</TableCell>
-            <TableCell align="right">RELETIVE PERDON</TableCell>
-            <TableCell align="right">RELETIVE PERSON CONTACT</TableCell>
-            <TableCell align="right">REPOTER</TableCell>
+            <TableCell  style={{fontWeight:600}}>NAME</TableCell>
+            <TableCell align="center" style={{fontWeight:600}}>EMAIL</TableCell>
+            <TableCell align="center"style={{fontWeight:600}}> DESIGNATION</TableCell>
+            <TableCell align="right"style={{fontWeight:600}}>ROLE NAME</TableCell>
+            <TableCell align="right"style={{fontWeight:600}}>MOBILE</TableCell>
+            <TableCell align="right"style={{fontWeight:600}}>REPOTER</TableCell>
+            <TableCell align="right"style={{fontWeight:600}}> ACTION</TableCell>
             {/* <TableCell align="right"></TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
           {Array.isArray( emp) &&
           emp.map((Employee, i) => (
-              <TableRow
-                key={i}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
+            <TableRow
+            key={i}
+            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
                 <TableCell
                   component="th"
                   scope="row"
                   style={{ display: "flex" }}
-                >
+                  >
                   <Grid
                     component="span"
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-
+                      
                       alignItems: "center",
                     }}
-                  >
+                    >
                     <Typography component="span">
                       <Avatar>{Employee.ProfileImage}</Avatar>
                     </Typography>
                     <Typography
                       component="span"
                       style={{ paddingLeft: "15px" }}
-                    >
+                      >
                       <Typography
                         component="span"
                         style={{
                           display: "flex",
                           fontWeight: "bold",
                         }}
-                      >
+                        >
                         {Employee.FullName}
                       </Typography>
-                      <Typography component="span">{Employee.Email}</Typography>
                     </Typography>
                   </Grid>
                 </TableCell>
+                <TableCell align="center">{Employee.Email}</TableCell>
                 <TableCell align="center">{Employee.Designation}</TableCell>
-                <TableCell align="right">
+                {/* <TableCell align="right">
                   <Typography
-                    component="span"
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "0.75rem",
-                      color: "rgba(6,95,70)",
-                      backgroundColor: "#b0e0e6",
-                      borderRadius: "8px",
-                      padding: "2px 10px",
-                      display: "inline-block",
-                    }}
+                  component="span"
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "0.75rem",
+                    color: "rgba(6,95,70)",
+                    backgroundColor: "#b0e0e6",
+                    borderRadius: "8px",
+                    padding: "2px 10px",
+                    display: "inline-block",
+                  }}
                   >
-                    pending
+                  pending
                   </Typography>
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="right">{Employee.Id}</TableCell>
-                <TableCell align="right">{Employee.Joining_Date}</TableCell>
                 <TableCell align="right">{Employee.Contact}</TableCell>
-                <TableCell align="right">{Employee.Contact}</TableCell>
-                <TableCell align="right">{Employee.Address}</TableCell>
-                <TableCell align="right">{Employee.DOB}</TableCell>
-                <TableCell align="right">{Employee.RelativePerson}</TableCell>
-                <TableCell align="right">{Employee.RelativeContact}</TableCell>
                 <TableCell align="right">{Employee.Reporter}</TableCell>
                 {/* <TableCell align="right">{Employee.Id}</TableCell> */}
-                <TableCell align="right">
-                  <Typography
-                    component="span"
-                    style={{ color: "blue", cursor: "pointer" }}
-                  >
-                    <Link to="/edit">{Employee.Edit}</Link>
-                  </Typography>
+                <TableCell align="right"
+                style={{display:"flex"}}
+                >
+                  <Typography><DeleteOutlineOutlinedIcon/></Typography>
+                  <Link to={`edit/${Employee.Employee_Id}`} component={<EditTable/>}><BorderColorOutlinedIcon/></Link>
+                  <Link to={`/employee/view/${Employee.Id}`}  component={
+                  <Viewuser data={Employee.Id}/>}><RemoveRedEyeOutlinedIcon/></Link>
+                  
                 </TableCell>
               </TableRow>
             ))}
         </TableBody>
       </Table>
     </TableContainer>
+            </Grid>
   )
 }
 export default BasicTable

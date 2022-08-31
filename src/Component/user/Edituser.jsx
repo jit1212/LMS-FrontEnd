@@ -12,36 +12,35 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { useParams } from "react-router-dom"
+import axios from "axios"
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  )
-}
 
 const theme = createTheme()
 
-export default function EditTable() {
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    })
+export default function Edituser() {
+  const {id} = useParams()
+  const [state,setState]=React.useState()
+
+  const loadUser = async () =>{
+    const result = await axios.get(`http://localhost:3008/employee/${id}`)
+    console.log(result);
+
   }
+
+  React.useEffect(()=>{
+    loadUser()
+  },[])
+  const handleSubmit =()=>{
+
+  }
+
+
+
+
+
+
+  
 
   return (
     <ThemeProvider theme={theme}>
