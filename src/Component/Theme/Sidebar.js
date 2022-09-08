@@ -8,6 +8,12 @@ import { Link, useParams } from "react-router-dom"
 import { NavLink } from "react-bootstrap"
 const Data = [
   {
+    name: "Home",
+    
+    
+    path: <CheckBoxOutlineBlankIcon style={{ width: "20px" }} />,
+  },
+  {
     name: "Dashboard",
     path: <DashboardOutlinedIcon style={{ width: "20px" }} />,
   },
@@ -31,6 +37,7 @@ const Data = [
     name: "Blank",
     path: <CheckBoxOutlineBlankIcon style={{ width: "20px" }} />,
   },
+ 
 ]
 
 const Sidebar = (props) => {

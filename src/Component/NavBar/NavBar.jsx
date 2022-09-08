@@ -1,6 +1,5 @@
+
 import * as React from "react"
-import "./Appbar.css"
-import "./sidebar.css"
 import { styled, useTheme } from "@mui/material/styles"
 import Box from "@mui/material/Box"
 import Drawer from "@mui/material/Drawer"
@@ -8,17 +7,17 @@ import CssBaseline from "@mui/material/CssBaseline"
 import MuiAppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
 import List from "@mui/material/List"
-import Typography from "@mui/material/Typography"
+// import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import ListItem from "@mui/material/ListItem"
-import ListItemButton from "@mui/material/ListItemButton"
+// import ListItemButton from "@mui/material/ListItemButton"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
-import InboxIcon from "@mui/icons-material/MoveToInbox"
+// import InboxIcon from "@mui/icons-material/MoveToInbox"
 import MailIcon from "@mui/icons-material/Mail"
 import InputBase from "@mui/material/InputBase"
 import Badge from "@mui/material/Badge"
@@ -28,8 +27,7 @@ import SearchIcon from "@mui/icons-material/Search"
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import MoreIcon from "@mui/icons-material/MoreVert"
-import Sidebar from "./Sidebar"
-import RoutesDsah from "../../RoutesDash"
+// import Sidebar from "./Sidebar"
 import { Avatar } from "@mui/material"
 import TableRestaurantOutlinedIcon from "@mui/icons-material/TableRestaurantOutlined"
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined"
@@ -37,54 +35,35 @@ import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined"
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank"
 import { Link } from "react-router-dom"
 
+
 const Data = [
- 
   {
     name: "Dashboard",
-    path: <DashboardOutlinedIcon className="icons" />,
+    icon: <DashboardOutlinedIcon className="icons" />,
   },
   {
     name: "Employee",
-    path: <TableRestaurantOutlinedIcon className="icons" />,
+    icon: <TableRestaurantOutlinedIcon className="icons" />,
   },
   {
     name: "Forms",
-    path: <TableRestaurantOutlinedIcon className="icons" />,
+    icon: <TableRestaurantOutlinedIcon className="icons" />,
   },
   {
     name: "Cards",
-    path: <PaymentOutlinedIcon className="icons" />,
+    icon: <PaymentOutlinedIcon className="icons" />,
   },
   {
     name: "Model",
-    path: <TableRestaurantOutlinedIcon className="icons" />,
+    icon: <TableRestaurantOutlinedIcon className="icons" />,
   },
   {
     name: "Blank",
-    path: <CheckBoxOutlineBlankIcon className="icons" />,
+    icon: <CheckBoxOutlineBlankIcon className="icons" />,
   },
 ]
-
+  
 const drawerWidth = 240
-
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    // padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  })
-)
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -153,9 +132,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }))
 
-export default function PersistentDrawerLeft() {
+const NavBar = ({open,handleDrawerOpen,handleDrawerClose}) => {
   const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
   const [state, setState] = React.useState({
     activeObject: Data[0],
     Data,
@@ -168,14 +146,6 @@ export default function PersistentDrawerLeft() {
     if (state.Data[i] === state.activeObject) {
       return "box active"
     } else return "box inactive"
-  }
-
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -276,9 +246,8 @@ export default function PersistentDrawerLeft() {
       </Menu>
     )
   }
-
-  return (
-    <Box sx={{ display: "flex" }}>
+    return (
+        <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         className="Appbarone"
@@ -393,7 +362,7 @@ export default function PersistentDrawerLeft() {
               onClick={() => ToggleActive(index)}
             >
               <Link to={text.name} className="link">
-                <ListItemIcon className="icons">{text.path}</ListItemIcon>
+                <ListItemIcon className="icons">{text.icon}</ListItemIcon>
                 <ListItemText>{text.name}</ListItemText>
               </Link>
             </ListItem>
@@ -414,13 +383,11 @@ export default function PersistentDrawerLeft() {
           }
         /> */}
       </Drawer>
-      <Main className="main" open={open}>
-        <DrawerHeader />
-        {/* <Dashboard /> */}
-        <RoutesDsah />
-      </Main>
+      
       {renderMobileMenu()}
       {renderMenu}
-    </Box>
-  )
+      </Box>
+    )
 }
+
+export default NavBar;

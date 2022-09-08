@@ -1,34 +1,14 @@
-import react from "react"
-import "./App.css"
+import "./App.css";
 
-import { createTheme } from "@mui/material/styles"
-import PersistentDrawerLeft from "./Component/Theme/PersistentDrawerLeft"
-import Signin from "./Component/Login/Signin"
+import { createTheme } from "@mui/material/styles";
+import ContextWrapper from "./Component/ContextWrapper";
 
-const theme = createTheme({
-  typography: {
-    allVariants: {
-      //   fontFamily: "sans-serif",
-      fontFamily: [
-        "Nunito",
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
-      ].join(","),
-      textTransform: "none",
-      fontSize: 14,
-    },
-  },
-})
-
-const App = () => {
+const App = () => {  
   return (
     <>
-      <PersistentDrawerLeft />
-      {/* <Signin /> */}
+      <ContextWrapper/>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
