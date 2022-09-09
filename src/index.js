@@ -9,17 +9,14 @@ import store from "./Component/redux/store"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "react-toastify/dist/ReactToastify.css"
 import { BrowserRouter as Router } from "react-router-dom"
-import { CookiesProvider } from "react-cookie"
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <Provider store={store}>
-        <Router>
-          <App />
-        </Router>
-      </Provider>
-    </CookiesProvider>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
   </React.StrictMode>
 )
 

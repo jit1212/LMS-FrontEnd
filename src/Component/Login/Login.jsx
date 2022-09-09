@@ -15,9 +15,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { commentsDollar } from "fontawesome";
 import { Navigate, useNavigate } from "react-router-dom";
-import PersistentDrawerLeft from "../Theme/PersistentDrawerLeft";
-import SignUp from "./Signup";
-import { useCookies } from 'react-cookie';
+import { login } from "../../api/employee";
+import { useDispatch } from "react-redux";
+import Cookies from 'js-cookie'
+
 
 // const getToken = () => {
 //   const tokenString = sessionStorage.getItem("token");
@@ -46,35 +47,49 @@ const Login = ({ setToken }) => {
   const [error, setError] = React.useState();
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
-  const [cookies, setCookie] = useCookies();
+  const dispatch = useDispatch()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    axios.post("http://localhost:3008/employee/signIn",
-        { email, password },
-        {
-          headers: {
-            "Contents-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res,'login===');
-        const data = res.data;
-        setCookie('user',data.UserData);
-        setCookie('token',data.UserToken)
-        if(data.message === 'Login successfull') {
+    const json = await login(email,password);
+    Cookies.set('user',json.UserData);
+        Cookies.set('token',json.UserToken)
+        if(json.message === 'Login successfull') {
           navigate('/Dashboard')
         }
-      })
-      .catch((error)=>{
-        setError("");
-        setError(error.response.data.message)
-      });
+    console.log(json,'login json===')
+
+
+    const  handleChange = ()=>{
+
+    }
+
+
+    // axios.post("http://localhost:3008/employee/signIn",
+    //     { email, password },
+    //     {
+    //       headers: {
+    //         "Contents-Type": "application/json",
+    //       },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     console.log(res,'login===');
+    //     const data = res.data;
+    //     setCookie('user',data.UserData);
+    //     setCookie('token',data.UserToken)
+    //     if(data.message === 'Login successfull') {
+    //       navigate('/Dashboard')
+    //     }
+    //   })
+    //   .catch((error)=>{
+    //     setError("");
+    //     setError(error.response.data.message)
+    //   });
   };
 
   return (
+    <>
     <Box
       sx={{
         marginTop: 8,
@@ -136,6 +151,7 @@ const Login = ({ setToken }) => {
         </Grid>
       </Box>
     </Box>
+    </>
   );
 };
 
