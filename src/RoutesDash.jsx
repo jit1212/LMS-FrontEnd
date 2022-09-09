@@ -10,36 +10,36 @@ import Viewuser from "./Component/user/Viewuser"
 import Cards from "./Component/Dashboard/Cards"
 import Login from "./Component/Login/Login"
 import SignUp from "./Component/Login/Signup"
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie'
+import { getToken } from "./api/getToken"
+
 
 const RoutesDsah = () => {
   const route = useLocation()
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies();
   useEffect(() => {
-    const user = cookies.user;
+    const user = Cookies.get('user');
     console.log(user,user == undefined || user == null,'user===')
-    if((route.pathname === '/' && (user == undefined || user == null)) && (route.pathname !== '/Resister')) {
-      navigate('/login');
-    }
-    if((route.pathname === '/' && user)) {
+    if ((user !== undefined && user !== null) && (route.pathname === '/' || route.pathname === '/login' || route.pathname === '/Register')) {
       navigate('/Dashboard');
+    } else if ((route.pathname === '/' || user == undefined || user == null) && (route.pathname !== '/Register')) {
+      navigate('/login');
     }
   },[route.pathname])
   return (
     <div className="RoutesDsah">
       <Routes>
        
-        <Route path="/Dashboard" element={<Dashboard />} />
-        {/* <Route path="/" element={<BasicTable />} /> */}
-        <Route path="/Forms " element={<Forms />} />
-        <Route path="/Cards" element={<Cards />} />
-        <Route path="/Model" element={<Model />} />
-        <Route path="/Blank" element={<Blank />} />
-        <Route path="employee/edit/:Id" element={<Edituser/>} />
-        <Route path="employee/view/:Id" element={<Viewuser/>} />
+        <Route path="/Dashboard" exact element={<Dashboard />} />
+        {/* <Route path="/" exact element={<BasicTable />} /> */}
+        <Route path="/Forms " exact element={<Forms />} />
+        <Route path="/Cards" exact element={<Cards />} />
+        <Route path="/Model" exact element={<Model />} />
+        <Route path="/Blank" exact element={<Blank />} />
+        <Route path="employee/edit/:Id" exact element={<Edituser/>} />
+        <Route path="employee/view/:Id" exact element={<Viewuser/>} />
         <Route path="/login" exact element={<Login />} />
-        <Route path="/Resister" exact element={<SignUp />} />
+        <Route path="/Register" exact element={<SignUp />} />
       </Routes>
     </div>
   )

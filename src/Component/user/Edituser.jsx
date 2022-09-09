@@ -1,19 +1,14 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectBankDetails,
@@ -31,32 +26,31 @@ const Edituser = () => {
   const dispatch = useDispatch();
 
   const { Id } = useParams();
-  console.log(Id,"+++++++++++++++++++++++++++++++++++++++++++++++++++");
-  const { IsBond, Duration, StartDate, EndDate } = bondDetails;
-  const {
+  // const { IsBond, Duration, StartDate, EndDate } = bondDetails;
+  // const {
     
-    Email,
-    FullName,
-    Address,
-    Probation_Period,
-    Joining_Date,
-    DOB,
-    Contact,
-    Designation,
-  } = empEmployee;
-  const { Account_number, IFSC_Code, BankName, Branch } = empBanks;
-  const {
-    Basic_Salary,
-    PF,
-    PT,
-    Other_Deduction,
-    HRA,
-    ESI,
-    Monthly,
-    Special_Allowance,
-    Bonus,
-    Performance_Allowance,
-  } = salary;
+  //   Email,
+  //   FullName,
+  //   Address,
+  //   Probation_Period,
+  //   Joining_Date,
+  //   DOB,
+  //   Contact,
+  //   Designation,
+  // } = empEmployee;
+  // const { Account_number, IFSC_Code, BankName, Branch } = empBanks;
+  // const {
+  //   Basic_Salary,
+  //   PF,
+  //   PT,
+  //   Other_Deduction,
+  //   HRA,
+  //   ESI,
+  //   Monthly,
+  //   Special_Allowance,
+  //   Bonus,
+  //   Performance_Allowance,
+  // } = salary;
 
   const handleChange=(e)=>{
     let {name,value}=e.target
@@ -69,7 +63,6 @@ const Edituser = () => {
   }
 
   const handleSubmit = (e)=>{
-    console.log("===========================================================");
     console.log(empEmployee);
     e.preventDefault();
     axios.put(`http://localhost:3008/employee/update`,empEmployee)
@@ -85,10 +78,10 @@ const Edituser = () => {
     axios
       .get(`http://localhost:3008/employee/allEmpDetails?Id=${Id}`)
       .then((res) => {
-        dispatch(selectEmployees(res.data.data[0]));
-        dispatch(selectBankDetails(res.data.data[0].banks[0]));
-        dispatch(selectBondDetails(res.data.data[0].bonds[0]));
-        dispatch(selectSalaryDetails(res.data.data[0].salaries[0]));
+        // dispatch(selectEmployees(res.data.data[0]));
+        // dispatch(selectBankDetails(res.data.data[0].banks[0]));
+        // dispatch(selectBondDetails(res.data.data[0].bonds[0]));
+        // dispatch(selectSalaryDetails(res.data.data[0].salaries[0]));
       })
       .catch((err) => {
         console.log(err);
@@ -133,8 +126,8 @@ const Edituser = () => {
                   fullWidth
                   id="FullName"
                   label="FullName"
-                  value={FullName}
-                  onChange={(e)=>handleChange(e)}
+                  // value={FullName}
+                  // onChange={(e)=>handleChange(e)}
                   // defaultValue={FullName}
                   autoFocus
                 />
@@ -146,8 +139,8 @@ const Edituser = () => {
                   id="Designation"
                   label="Designation"
                   name="Designation"
-                  value={Designation}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Designation}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="family-name"
                 />
@@ -159,8 +152,8 @@ const Edituser = () => {
                   id="Email"
                   label="Email"
                   name="Email"
-                  value={Email}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Email}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="family-name"
                 />
@@ -172,8 +165,8 @@ const Edituser = () => {
                   id="Contact"
                   label="Contact"
                   name="Contact"
-                  value={Contact}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Contact}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="family-name"
                 />
@@ -185,8 +178,8 @@ const Edituser = () => {
                   id="DOB"
                   label="Date Of Birth"
                   name="DOB"
-                  value={DOB}
-                  onChange={(e)=>handleChange(e)}
+                  // value={DOB}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="email"
                 />
@@ -198,8 +191,8 @@ const Edituser = () => {
                   name="Joining_Date"
                   label="Joinning Date"
                   id="Joining_Date"
-                  value={Joining_Date}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Joining_Date}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="new-password"
                 />
@@ -211,8 +204,8 @@ const Edituser = () => {
                   name="Probation_Period"
                   label="ProbationPeriod"
                   id="Probation_Period"
-                  value={Probation_Period}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Probation_Period}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="new-password"
                 />
@@ -224,8 +217,8 @@ const Edituser = () => {
                   name="Address"
                   label="Address"
                   id="Address"
-                  value={Address}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Address}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="new-password"
                 />
@@ -244,8 +237,8 @@ const Edituser = () => {
                   fullWidth
                   id="BankName"
                   label="BankName"
-                  value={BankName}
-                  onChange={(e)=>handleChange(e)}
+                  // value={BankName}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                 />
               </Grid>
@@ -256,8 +249,8 @@ const Edituser = () => {
                   id="Account_number"
                   label="Account Number"
                   name="Account_number"
-                  value={Account_number}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Account_number}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                   autoComplete="family-name"
                 />
@@ -269,8 +262,8 @@ const Edituser = () => {
                   id="IFSC_Code"
                   label="IFSC code"
                   name="IFSC_Code"
-                  value={IFSC_Code}
-                  onChange={(e)=>handleChange(e)}
+                  // value={IFSC_Code}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -281,8 +274,8 @@ const Edituser = () => {
                   id="Branch"
                   label="Branch"
                   name="Branch"
-                  value={Branch}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Branch}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -299,8 +292,8 @@ const Edituser = () => {
                   fullWidth
                   id="IsBond"
                   label="Bond"
-                  value={IsBond}
-                  onChange={(e)=>handleChange(e)}
+                  // value={IsBond}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                 />
               </Grid>
@@ -311,7 +304,7 @@ const Edituser = () => {
                   id="StartDate"
                   label="Start Day "
                   name="StartDate"
-                  value={StartDate}
+                  // value={StartDate}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -322,8 +315,8 @@ const Edituser = () => {
                   id="EndDate"
                   label="End Day"
                   name="EndDate"
-                  value={EndDate}
-                  onChange={(e)=>handleChange(e)}
+                  // value={EndDate}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -334,8 +327,8 @@ const Edituser = () => {
                   id="Duration"
                   label="Duration"
                   name="Duration"
-                  value={Duration}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Duration}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -352,8 +345,8 @@ const Edituser = () => {
                   fullWidth
                   id="Basic_Salary"
                   label="Basic Salary"
-                  value={Basic_Salary}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Basic_Salary}
+                  // onChange={(e)=>handleChange(e)}
                   autoFocus
                 />
               </Grid>
@@ -364,8 +357,8 @@ const Edituser = () => {
                   id="HRA"
                   label="HRA "
                   name="HRA"
-                  value={HRA}
-                  onChange={(e)=>handleChange(e)}
+                  // value={HRA}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -376,8 +369,8 @@ const Edituser = () => {
                   id="Bonus"
                   label="Bonus"
                   name="Bonus"
-                  value={Bonus}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Bonus}
+                  // onChange={(e)=>handleChange(e)}
 
                   autoComplete="family-name"
                 />
@@ -390,8 +383,8 @@ const Edituser = () => {
                   label="Performance Allowance"
                   name="Performance_Allowance"
                   autoComplete="family-name"
-                  value={Performance_Allowance}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Performance_Allowance}
+                  // onChange={(e)=>handleChange(e)}
                 />
               </Grid>
               <Grid item xs={12} md={3}>
@@ -401,8 +394,8 @@ const Edituser = () => {
                   id="Special_Allowance"
                   label="Special Allowance"
                   name="Special_Allowance"
-                  value={Special_Allowance}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Special_Allowance}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -413,8 +406,8 @@ const Edituser = () => {
                   id="PF"
                   label="PF"
                   name="PF"
-                  value={PF}
-                  onChange={(e)=>handleChange(e)}
+                  // value={PF}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -426,8 +419,8 @@ const Edituser = () => {
                   id="ESI"
                   label="ESI"
                   name="ESI"
-                  value={ESI}
-                  onChange={(e)=>handleChange(e)}
+                  // value={ESI}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -438,8 +431,8 @@ const Edituser = () => {
                   id="PT"
                   label="PT"
                   name="PT"
-                  value={PT}
-                  onChange={(e)=>handleChange(e)}
+                  // value={PT}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -450,8 +443,8 @@ const Edituser = () => {
                   id="Other_Deduction"
                   label="Other Deduction"
                   name="Other_Deduction"
-                  value={Other_Deduction}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Other_Deduction}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -462,8 +455,8 @@ const Edituser = () => {
                   id="Monthly"
                   label="Monthly"
                   name="Monthly"
-                  value={Monthly}
-                  onChange={(e)=>handleChange(e)}
+                  // value={Monthly}
+                  // onChange={(e)=>handleChange(e)}
                   autoComplete="family-name"
                 />
               </Grid>

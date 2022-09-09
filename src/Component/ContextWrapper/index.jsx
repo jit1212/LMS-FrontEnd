@@ -44,7 +44,7 @@ export default function ContextWrapper() {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        {pathName == '/login' || pathName == '/Resister' ? null : <NavBar open={open} handleDrawerClose={handleDrawerClose} handleDrawerOpen={handleDrawerOpen} />}
+        {/login/i.test(pathName) || pathName == '/Register' ? null : <NavBar open={open} handleDrawerClose={handleDrawerClose} handleDrawerOpen={handleDrawerOpen} />}
         <Main className="main" open={open}>
           {/* <Dashboard/> */}
           <RoutesDsah />

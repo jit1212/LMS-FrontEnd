@@ -6,47 +6,34 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Avatar, Grid, selectClasses, Typography } from "@mui/material";
+import { Avatar, Grid, Typography } from "@mui/material";
 import EditTable from "../user/Edituser";
 import { Link } from "react-router-dom";
-import { NavLink } from "react-bootstrap";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { removeEmployees, selectEmployees, setEmployees } from "../redux/Action/EmployeeActions";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import Viewuser from "../user/Viewuser";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 const BasicTable = () => {
-  const {employee} = useSelector((state) => state);
-  let emp = employee.employees;
-  const dispatch = useDispatch();
+  const [employee, setEmployee] = React.useState();
 
-  const loadUser=()=>{
+  const loadUser = () => {
     axios
-    .get("http://localhost:3008/employee/getAllEmp")
-    .then((res) => {
-      dispatch(setEmployees(res.data));
-      // setState(res.data)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  }
-
-  const deleteUser = (Id)=>{
-    axios
-    .delete(`http://localhost:3008/employee/delete?empId=${Id}`)
-    
-    loadUser();
-  }
+      .get("http://localhost:3008/employee/getAllEmp")
+      .then((res) => {
+        setEmployee(res.data);
+        console.log(employee);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   React.useEffect(() => {
-   loadUser();
+    loadUser();
   }, []);
 
   return (
@@ -80,12 +67,11 @@ const BasicTable = () => {
                 {" "}
                 ACTION
               </TableCell>
-              {/* <TableCell align="right"></TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {Array.isArray(emp) &&
-              emp.map(
+            {Array.isArray(employee) &&
+              employee.map(
                 (
                   {
                     Email,
@@ -138,31 +124,18 @@ const BasicTable = () => {
                     </TableCell>
                     <TableCell align="center">{Email}</TableCell>
                     <TableCell align="center">{Designation}</TableCell>
-                    {/* <TableCell align="right">
-                  <Typography
-                  component="span"
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "0.75rem",
-                    color: "rgba(6,95,70)",
-                    backgroundColor: "#b0e0e6",
-                    borderRadius: "8px",
-                    padding: "2px 10px",
-                    display: "inline-block",
-                  }}
-                  >
-                  pending
-                  </Typography>
-                </TableCell> */}
                     <TableCell align="right">{Id}</TableCell>
                     <TableCell align="right">{Contact}</TableCell>
                     <TableCell align="right">{Reporter}</TableCell>
                     {/* <TableCell align="right">{Employee.Id}</TableCell> */}
                     <TableCell align="right" style={{ display: "flex" }}>
-                      <Link to={`/`}  onClick={()=>deleteUser()} >
+                      <Link to={`/`}>
                         <DeleteOutlineOutlinedIcon />
                       </Link>
-                      <Link to={`/employee/edit/${Id}`} component={<EditTable />}>
+                      <Link
+                        to={`/employee/edit/${Id}`}
+                        component={<EditTable />}
+                      >
                         <BorderColorOutlinedIcon />
                       </Link>
                       <Link
