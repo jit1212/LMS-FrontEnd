@@ -9,27 +9,22 @@ import Paper from "@mui/material/Paper";
 import { Avatar, Grid, Typography } from "@mui/material";
 import EditTable from "../user/Edituser";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import Viewuser from "../user/Viewuser";
+import { loadEmpolyee } from "../../api/employee";
 
 const BasicTable = () => {
   const [employee, setEmployee] = React.useState();
 
-  const loadUser = () => {
-    axios
-      .get("http://localhost:3008/employee/getAllEmp")
-      .then((res) => {
-        setEmployee(res.data);
-        console.log(employee);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const loadUser = async () => {
+    const data = await loadEmpolyee();
+    if(data) {
+      setEmployee(data)
+    }
   };
 
   React.useEffect(() => {
@@ -38,15 +33,14 @@ const BasicTable = () => {
 
   return (
     <Grid>
-      <Typography align="center" style={{ padding: "25px" }}>
-        <Link to="add">Add Employee</Link>
-      </Typography>
+      
 
       <TableContainer component={Paper} sx={{ padding: "20px" }}>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
-              <TableCell style={{ fontWeight: 600 }}>NAME</TableCell>
+              <TableCell style={{ fontWeight: 600 }} align="center">Sr No.</TableCell>
+              <TableCell style={{ fontWeight: 600 }} align="center">NAME</TableCell>
               <TableCell align="center" style={{ fontWeight: 600 }}>
                 EMAIL
               </TableCell>
@@ -54,16 +48,16 @@ const BasicTable = () => {
                 {" "}
                 DESIGNATION
               </TableCell>
-              <TableCell align="right" style={{ fontWeight: 600 }}>
+              <TableCell align="center" style={{ fontWeight: 600 }}>
                 ROLE NAME
               </TableCell>
-              <TableCell align="right" style={{ fontWeight: 600 }}>
+              <TableCell align="center" style={{ fontWeight: 600 }}>
                 MOBILE
               </TableCell>
-              <TableCell align="right" style={{ fontWeight: 600 }}>
+              <TableCell align="center" style={{ fontWeight: 600 }}>
                 REPOTER
               </TableCell>
-              <TableCell align="right" style={{ fontWeight: 600 }}>
+              <TableCell align="center" style={{ fontWeight: 600 }}>
                 {" "}
                 ACTION
               </TableCell>
@@ -89,22 +83,23 @@ const BasicTable = () => {
                     key={i}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
+                    
+                    <TableCell align="center">{i+1}</TableCell>
                     <TableCell
                       component="th"
                       scope="row"
-                      style={{ display: "flex" }}
+                      align="center"
                     >
                       <Grid
                         component="span"
                         style={{
                           display: "flex",
-                          justifyContent: "space-between",
 
                           alignItems: "center",
                         }}
                       >
                         <Typography component="span">
-                          <Avatar>{ProfileImage}</Avatar>
+                          <Avatar src={ProfileImage}/>
                         </Typography>
                         <Typography
                           component="span"
@@ -124,11 +119,11 @@ const BasicTable = () => {
                     </TableCell>
                     <TableCell align="center">{Email}</TableCell>
                     <TableCell align="center">{Designation}</TableCell>
-                    <TableCell align="right">{Id}</TableCell>
-                    <TableCell align="right">{Contact}</TableCell>
-                    <TableCell align="right">{Reporter}</TableCell>
-                    {/* <TableCell align="right">{Employee.Id}</TableCell> */}
-                    <TableCell align="right" style={{ display: "flex" }}>
+                    <TableCell align="center">{Id}</TableCell>
+                    <TableCell align="center">{Contact}</TableCell>
+                    <TableCell align="center">{Reporter}</TableCell>
+                    {/* <TableCell align="center">{Employee.Id}</TableCell> */}
+                    <TableCell align="center">
                       <Link to={`/`}>
                         <DeleteOutlineOutlinedIcon />
                       </Link>
