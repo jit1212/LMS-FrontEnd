@@ -15,28 +15,6 @@ import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie'
 import { ActionTypes } from "../redux/Contant/action-type";
 
-
-// const getToken = () => {
-//   const tokenString = sessionStorage.getItem("token");
-//   const user_details = JSON.parse(tokenString);
-//   return user_details;
-// };
-// const getUser = () => {
-//   const userString = sessionStorage.getItem("token");
-//   const userToken = JSON.parse(userString);
-//   return userToken;
-// };
-// // const [token, setToken] = React.useState(getToken());
-// // const [user, setUser] = React.useState(getUser());
-// const [token, setToken] = React.useState(getToken());
-// const [user, setUser] = React.useState(getUser());
-// setToken(token);
-// setUser(user);
-// const saveToken = (token) => {
-// sessionStorage.setItem("token", JSON.stringify(token));
-// sessionStorage.setItem("user", JSON.stringify(user));
-// };
-
 const Login = ({ setToken }) => {
   const navigate = useNavigate();
   const [msg, setMsg] = React.useState();

@@ -20,7 +20,6 @@ const RoutesDsah = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(typeof Cookies.get('user'),'user===')
     const user = Cookies.get('user') !== 'undefined' && Cookies.get('user') !== undefined ? JSON.parse(Cookies.get('user')) : null;
     if ((user !== undefined && user !== null) && (route.pathname === '/' || route.pathname === '/login' || route.pathname === '/Register')) {
       navigate('/Dashboard');

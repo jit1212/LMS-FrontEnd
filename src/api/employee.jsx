@@ -1,4 +1,4 @@
-import { get, post } from "./utils/httpUtils"
+import { get, post, put } from "./utils/httpUtils"
 
 export const login = async (email, password, dispatch = null) => {
   try {
@@ -67,9 +67,9 @@ export const getSingleEmployee = async (Id)=>{
 
   }
 }
-export const updateEmployee = async (Id)=>{
+export const updateEmployee = async (Id,body)=>{
   try{
-    const json = await post(`/employee/update?Id=${Id}`);
+    const json = await put(`/employee/update?Id=${Id}`,body);
     console.log(json.data,"Update Employee");
     if(json?.data) {
       return json.data

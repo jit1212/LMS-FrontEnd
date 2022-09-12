@@ -5,6 +5,10 @@ export const post = async (url,body) => {
   return await http(url,'post',body);
 }
 
+export const put = async (url,body) => {
+  return await http(url,'put',body);
+}
+
 export const get = async (url)=>{
   return await http(url,'get')
 }

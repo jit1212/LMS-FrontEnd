@@ -1,4 +1,5 @@
 .Dashboard {
   background-color: rgba(229, 231, 235);
-  padding: 43px;
+  padding: 100px 40px;
+  min-height: 100vh;
 }

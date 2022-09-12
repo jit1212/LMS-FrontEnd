@@ -8,12 +8,24 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useLocation, useParams } from "react-router-dom";
-import { getSingleEmployee } from "../../api/employee";
+import { getSingleEmployee, updateEmployee } from "../../api/employee";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { Button } from "@mui/material";
+import { Button, Step, StepLabel, Stepper } from "@mui/material";
+import { useState } from "react";
+
+const steps = [
+  'Personal Details',
+  'Bank Details',
+  'Bond Details',
+  'Salary Details'
+];
 
 const Edituser = () => {
+  const [personalDetails,setPersonalDetails] = useState()
+  const [bankDetails,setBankDetails] = useState()
+  const [salaryDetails,setSalaryDetails] = useState()
+  const [bondDetails,setBondDetails] = useState()
   const [employee, setEmployee] = React.useState({
     Email: "",
     FullName: "",
@@ -24,6 +36,7 @@ const Edituser = () => {
     Contact: "",
     Designation: "",
   });
+  const [stepNum, setStepNum]=useState(0)
   const [ editeFlag, setEditFlag ] = React.useState(false)
 
   const { Id } = useParams();
@@ -34,14 +47,23 @@ const Edituser = () => {
     setEmployee({ ...employee, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  // const handleBankChange = (e) => {
+  //   let {name}
 
+  // }
+  
+  const handleSubmit = async (e) => {
+    let item = {
+      Email:"",
+      FullName:""
+    }
+    
     e.preventDefault();
-    console.log("update data");
+    const json = await updateEmployee(Id,item)
+    console.log(json);
   };
 
   React.useEffect(() => {
-    console.log(location,'loc==');
     if(location.pathname.includes('edit')) {
       setEditFlag(true)
     } else if(location.pathname.includes('view')) {
@@ -50,7 +72,11 @@ const Edituser = () => {
     async function init() {
       const data = await getSingleEmployee(Id);
       if (data[0]) {
-        setEmployee(data[0]);
+        const empData = data[0]
+        setEmployee(() => (empData.personalDetails[0]));
+        setSalaryDetails(() => empData.salaries[0])
+        setBankDetails(() => empData.banks[0])
+        setBondDetails(() => empData.bonds[0])
       }
     }
     init();
@@ -61,7 +87,7 @@ const Edituser = () => {
       <Container
         component="main"
         maxWidth="full"
-        style={{ backgroundColor: "rgba(229, 231, 235)", padding: "50px 24px" }}
+        style={{ backgroundColor: "rgba(229, 231, 235)", padding: "50px 24px", minHeight: '100vh' }}
       >
         <CssBaseline />
         <Box
@@ -79,12 +105,22 @@ const Edituser = () => {
             Details
           </Typography>
           <Box noValidate sx={{ mt: 3 }}>
+          <Box sx={{ width: '100%' }}>
+            <Stepper activeStep={stepNum} alternativeLabel>
+              {steps.map((label, index) => (
+                <Step key={label} onClick={() => setStepNum(index)}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </Box>
+          
             <form onSubmit={handleSubmit}>
-              <Grid container spacing={2} style={{ padding: "40px" }}>
+              {stepNum === 0 && (<Grid container spacing={2} style={{ padding: "40px" }}>
                 <Grid xs={12} md={12}>
                   <h4>Persnol Details:-</h4>
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     autoComplete="given-name"
                     name="FullName"
@@ -99,7 +135,7 @@ const Edituser = () => {
                     autoFocus
                   />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     required
                     fullWidth
@@ -114,7 +150,7 @@ const Edituser = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     required
                     fullWidth
@@ -128,7 +164,7 @@ const Edituser = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     required
                     fullWidth
@@ -142,11 +178,12 @@ const Edituser = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-                <Grid item xs={12} md={2}>
+                <Grid item xs={12} md={6}>
                   
 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
+                    fullWidth
                       required
                       id="DOB"
                       label="Date Of Birth"
@@ -157,13 +194,14 @@ const Edituser = () => {
                         setEmployee({ ...employee, DOB: value })
                       }
                       disabled={!editeFlag}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params) => <TextField fullWidth {...params} />}
                     />
                   </LocalizationProvider>
                 </Grid>
-                <Grid item xs={12} md={2}>
+                <Grid item xs={12} md={6}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
+                    fullWidth
                       required
                       id="Joining_Date"
                       label="Joinning Date"
@@ -174,11 +212,11 @@ const Edituser = () => {
                         setEmployee({ ...employee, Joining_Date: value })
                       }
                       disabled={!editeFlag}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params) => <TextField fullWidth {...params} />}
                     />
                   </LocalizationProvider>
                 </Grid>
-                <Grid item xs={12} md={2}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     required
                     fullWidth
@@ -206,9 +244,9 @@ const Edituser = () => {
                     autoComplete="new-password"
                   />
                 </Grid>
-              </Grid>
+              </Grid>)}
 
-              <Grid container spacing={2} style={{ padding: "40px" }}>
+              {stepNum === 1 && (<Grid container spacing={2} style={{ padding: "40px" }}>
                 <Grid xs={12} md={12}>
                   <h4>Bank Details:-</h4>
                 </Grid>
@@ -267,8 +305,8 @@ const Edituser = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-              </Grid>
-              <Grid container spacing={2} style={{ padding: "40px" }}>
+              </Grid>)}
+              {stepNum === 2 && (<Grid container spacing={2} style={{ padding: "40px" }}>
                 <Grid xs={12} md={12}>
                   <h4>Bond Details:-</h4>
                 </Grid>
@@ -324,8 +362,8 @@ const Edituser = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-              </Grid>
-              <Grid container spacing={2} style={{ padding: "40px" }}>
+              </Grid>)}
+              {stepNum === 3 && (<Grid container spacing={2} style={{ padding: "40px" }}>
                 <Grid xs={12} md={12}>
                   <h4>Salary Details:-</h4>
                 </Grid>
@@ -462,11 +500,11 @@ const Edituser = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-              </Grid>
+              </Grid>)}
               {editeFlag && (<Grid display="flex" justifyContent="flex-end">
                 <Typography padding="15px">
                 <Button type="submit" variant="contained">
-                  Save
+                  Save 
                 </Button>
                 </Typography>
                 <Typography padding="15px">

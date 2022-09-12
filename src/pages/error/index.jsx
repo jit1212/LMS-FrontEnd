@@ -3,15 +3,15 @@ import {
     Card,
     Typography,
     Container,
-    Divider,
+    // Divider,
     Button,
-    FormControl,
+    // FormControl,
     OutlinedInput,
-    InputAdornment,
+    // InputAdornment,
     styled
   } from '@mui/material';
   // import { Helmet } from 'react-helmet-async';
-  import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+  // import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
   
   const MainContent = styled(Box)(
     () => `
@@ -25,17 +25,17 @@ import {
   `
   );
   
-  const OutlinedInputWrapper = styled(OutlinedInput)(
-    ({ theme }) => `
-      background-color: whited;
-  `
-  );
+  // const OutlinedInputWrapper = styled(OutlinedInput)(
+  //   ({ theme }) => `
+  //     background-color: whited;
+  // `
+  // );
   
-  const ButtonSearch = styled(Button)(
-    ({ theme }) => `
-      margin-right: -${theme.spacing(1)};
-  `
-  );
+  // const ButtonSearch = styled(Button)(
+  //   ({ theme }) => `
+  //     margin-right: -${theme.spacing(1)};
+  // `
+  // );
   
   function Status404() {
     return (
