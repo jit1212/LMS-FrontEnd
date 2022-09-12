@@ -34,6 +34,7 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined"
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined"
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 
 const Data = [
@@ -138,6 +139,8 @@ const NavBar = ({open,handleDrawerOpen,handleDrawerClose}) => {
     activeObject: Data[0],
     Data,
   })
+  const { currentUser } = useSelector(state => state.employee)
+  console.log(currentUser)
 
   const ToggleActive = (i) => {
     setState({ ...state, activeObject: state.Data[i] })
@@ -307,7 +310,8 @@ const NavBar = ({open,handleDrawerOpen,handleDrawerClose}) => {
             >
               <Avatar
                 alt="Travis Howard"
-                src="https://mui.com/static/images/avatar/2.jpg"
+                // src="https://mui.com/static/images/avatar/2.jpg"
+                src={currentUser?.ProfileImage ?? 'https://mui.com/static/images/avatar/3.jpg'}
               />
             </IconButton>
           </Box>

@@ -5,14 +5,13 @@ export const post = async (url,body) => {
   return await http(url,'post',body);
 }
 
-export const get = async (url,body)=>{
-  return await http(url,'post')
+export const get = async (url)=>{
+  return await http(url,'get')
 }
 
 
 const http = async (url,method,body) => {
   const token = getToken();
-  console.log(token,'===')
   try {
     if(method === 'post' || method === 'delete' || method === 'put') {
       const res = await axios[method]("http://localhost:3008" + url,
@@ -23,7 +22,6 @@ const http = async (url,method,body) => {
           authorization: `Barer ${token}`
         }
       })
-      console.log(res,'res====')
       const json = res.data;
       return json;
     } else {

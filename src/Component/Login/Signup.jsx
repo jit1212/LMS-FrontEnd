@@ -18,8 +18,11 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { FormControlLabel } from "@mui/material";
 import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
+import Cookies from "js-cookie";
+import { register } from "../../api/employee";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 
 export default function SignUp() {
   const [fullName, setFullName] = React.useState();
@@ -65,17 +68,12 @@ export default function SignUp() {
       documents,
       isConfirm,
     };
-    axios
-      .post("http://localhost:3008/employee/signUp", item, {
-        headers: {
-          "Contents-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+
+    const json = await register(item);
+    console.log(json, "regi====");
+    Cookies.set("user", JSON.stringify(json));
   }
+
   return (
     <Container component="main" maxWidth="md">
       <CssBaseline />
@@ -212,15 +210,20 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={3}>
-              <TextField
-                required
-                type="date"
-                fullWidth
-                id="dob"
-                label="DOB"
-                name="dob"
-                onChange={(e) => setDob(e.target.value)}
-              />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      required
+                      id="dob"
+                      label="Date Of Birth"
+                      name="dob"
+                      inputFormat="MM/DD/YYYY"
+                      onChange={(value) =>
+                        setDob({})
+                      }
+                      // disabled={!editeFlag}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
             </Grid>
             <Grid item xs={3}>
               <TextField

@@ -29,8 +29,6 @@ const Viewuser = () => {
   let salary = employee?.employeeSalary ?? {};
   let bondDetails = employee?.employeeBond ?? {};
   
-  console.log(employee,'emp===')
-  
   const dispatch = useDispatch();
   
   const { Id } = useParams();

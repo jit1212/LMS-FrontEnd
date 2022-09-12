@@ -1,7 +1,6 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -10,14 +9,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
-import { commentsDollar } from "fontawesome";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../api/employee";
 import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie'
+import { ActionTypes } from "../redux/Contant/action-type";
 
 
 // const getToken = () => {
@@ -52,40 +48,12 @@ const Login = ({ setToken }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const json = await login(email,password);
-    Cookies.set('user',json.UserData);
-        Cookies.set('token',json.UserToken)
-        if(json.message === 'Login successfull') {
-          navigate('/Dashboard')
-        }
-    console.log(json,'login json===')
-
-
-    const  handleChange = ()=>{
-
+    Cookies.set('user',JSON.stringify(json.UserData));
+    Cookies.set('token',json.UserToken)
+    if(json.message === 'Login successfull') {
+      navigate('/Dashboard')
     }
-
-
-    // axios.post("http://localhost:3008/employee/signIn",
-    //     { email, password },
-    //     {
-    //       headers: {
-    //         "Contents-Type": "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res,'login===');
-    //     const data = res.data;
-    //     setCookie('user',data.UserData);
-    //     setCookie('token',data.UserToken)
-    //     if(data.message === 'Login successfull') {
-    //       navigate('/Dashboard')
-    //     }
-    //   })
-    //   .catch((error)=>{
-    //     setError("");
-    //     setError(error.response.data.message)
-    //   });
+    dispatch({ type: ActionTypes.USER_LOGIN, payload: json.UserData})
   };
 
   return (
@@ -144,7 +112,7 @@ const Login = ({ setToken }) => {
             </Link>
           </Grid>
           <Grid item>
-            <Link href="Resister" variant="body2">
+            <Link href="/Register" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

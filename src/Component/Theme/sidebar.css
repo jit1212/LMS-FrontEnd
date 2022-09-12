@@ -55,33 +55,6 @@ li {
   background-color: rgba(17, 24, 39);
 }
 
-/* } */
-
-/* @media only screen and (max-width:1480px){}
-@media only screen and (max-width:1366px){}
-@media only screen and (max-width:1280px){} */
-/* @media only screen and (max-width: 1024px) {
-  .box {
-    display: flex;
-    margin-top: 10px;
-    font-family: Verdana, sans-serif;
-    color: rgba(107, 114, 128);
-    font-size: 14px;
-    align-items: center;
-    padding: 5px 5px 5px 10px;
-  }
-}
-@media only screen and (max-width: 991px) {
-}
-@media only screen and (max-width: 767px) {
-}
-@media only screen and (max-width: 600px) {
-}
-@media only screen and (max-width: 480px) {
-}
-@media only screen and (max-width: 380px) { */
-/* } */
-
 .icons {
   color: rgba(107, 114, 128);
   width: 40px;

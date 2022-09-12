@@ -7,7 +7,6 @@ export const login = async (email, password, dispatch = null) => {
       email,
       password
     })
-    console.log(json,'log===')
        
     if(json) {
       if(dispatch) {
@@ -20,14 +19,11 @@ export const login = async (email, password, dispatch = null) => {
   }
 }
 
-export const register = async (email, password) => {
+export const register = async (body) => {
   try {
-    const json = await post('/employee/signUp',{
-      email,
-      password
-    })
-    if(json) {
-      return json;
+    const json = await post('/employee/signUp',body)
+    if(json?.data) {
+      return json?.data;
     }
   } catch (e) {
     console.log('Error with register: ',e)
@@ -45,4 +41,42 @@ export const view = async () =>{
 
   }
   
+}
+
+export const loadEmpolyee = async () => {
+  try {
+    const json = await get('/employee/getAllEmp');
+    if(json) {
+      return json;
+    }
+  } catch (e) {
+    console.log('Error with register: ',e)
+  }
+}
+
+export const getSingleEmployee = async (Id)=>{
+  try{
+    const json = await get(`/employee/allEmpDetails?Id=${Id}`);
+    console.log(json.data,"get single");
+    if(json?.data) {
+      return json.data
+    }
+  }
+  catch (e){
+    console.log('Error with SingleEmployee');
+
+  }
+}
+export const updateEmployee = async (Id)=>{
+  try{
+    const json = await post(`/employee/update?Id=${Id}`);
+    console.log(json.data,"Update Employee");
+    if(json?.data) {
+      return json.data
+    }
+  }
+  catch (e){
+    console.log('Error with UpdateEmployee');
+
+  }
 }
