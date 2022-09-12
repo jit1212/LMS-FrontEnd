@@ -16,15 +16,24 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { FormControlLabel } from "@mui/material";
+import { FormControlLabel, Step, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { register } from "../../api/employee";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+const steps = [
+  'Personal Details',
+  'Bank Details',
+  'Bond Details',
+  'Salary Details'
+];
+
 
 
 export default function SignUp() {
+  const [stepNum, setStepNum]=useState(0)
+
   const [fullName, setFullName] = React.useState();
   const [designation, setDesignation] = useState();
   const [password, setPassword] = useState();
@@ -44,6 +53,8 @@ export default function SignUp() {
   const [uploadPhoto, setUploadPhoto] = useState();
   const [documents, setDocuments] = useState();
   const [isConfirm, setIsConfirm] = useState();
+
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -70,6 +81,7 @@ export default function SignUp() {
     };
 
     const json = await register(item);
+
     console.log(json, "regi====");
     Cookies.set("user", JSON.stringify(json));
   }
@@ -92,6 +104,16 @@ export default function SignUp() {
           Sign up
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+
+        <Box sx={{ width: '100%' }}>
+            <Stepper activeStep={stepNum} alternativeLabel>
+              {steps.map((label, index) => (
+                <Step key={label} onClick={() => setStepNum(index)}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </Box>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField

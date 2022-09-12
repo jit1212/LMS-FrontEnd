@@ -140,7 +140,6 @@ const NavBar = ({open,handleDrawerOpen,handleDrawerClose}) => {
     Data,
   })
   const { currentUser } = useSelector(state => state.employee)
-  console.log(currentUser)
 
   const ToggleActive = (i) => {
     setState({ ...state, activeObject: state.Data[i] })
